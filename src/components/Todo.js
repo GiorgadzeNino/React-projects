@@ -23,7 +23,7 @@ const Todo = () => {
     const handleInput = (e) => {
         setUserInput(e.target.value)
     }
-    
+
     const handleAddTodo = text => {
         console.log(text)
         if (text) {
@@ -51,7 +51,7 @@ const Todo = () => {
     }
 
     const handleSaveTodo = index => {
-        setTodoList(prev => prev.map(item => (todoList[index].task === item.task ? { isDone: false, task: userInput } : item)));
+        setTodoList(prev => prev.map(item => (todoList[index].task === item.task && todoList[index].task !== userInput ? { isDone: false, task: userInput } : item)));
         setUserInput('');
         setChangedTask('');
     }
