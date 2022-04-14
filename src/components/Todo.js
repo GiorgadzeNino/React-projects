@@ -51,7 +51,11 @@ const Todo = () => {
     }
 
     const handleSaveTodo = index => {
-        setTodoList(prev => prev.map(item => (todoList[index].task === item.task && todoList[index].task !== userInput ? { isDone: false, task: userInput } : item)));
+        const newTodos = [...todoList];
+        if (changedTask.task === todoList[index].task && todoList[index].task !== userInput) {
+            newTodos[index] = { isDone: false, task: userInput }
+        }
+        setTodoList(newTodos);
         setUserInput('');
         setChangedTask('');
     }
@@ -61,7 +65,8 @@ const Todo = () => {
                 <input
                     value={userInput}
                     onChange={(e) => handleInput(e)}
-                    className='shadow appearance-outline border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    className='shadow appearance-outline border-2 rounded w-full py-2 px-3
+                     text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                 />
                 <button
                     onClick={() => handleAddTodo(userInput)}
@@ -78,8 +83,8 @@ const Todo = () => {
                     changedTask={changedTask}
                     markTodo={handleMarkTodo}
                     removeTodo={handleDeleteTodo}
-                    editTodo={() => handleEditTodo(index)}
-                    saveTodo={() => handleSaveTodo(index)}
+                    editTodo={handleEditTodo}
+                    saveTodo={handleSaveTodo}
                 />
             ))}
         </div>
